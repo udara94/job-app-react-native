@@ -12,13 +12,15 @@ import styles from "./popularjobs.style";
 import { COLORS, SIZES } from "../../../constants";
 import PopularJobCard from "../../common/cards/popular/PopularJobCard";
 import useFetch from "../../../hook/useFetch";
+import { useGetPopularJobsQuery, useGetJobDetailsQuery } from "../../../app/store/apiSlice";
 
 const Popularjobs = ({navigation}) => {
-  // const router = useRouter();
-  const { data, isLoading, error } = useFetch("search", {
+
+  const { data, isLoading, error } = useGetPopularJobsQuery({
     query: "React developer",
     num_pages: "1",
-  });
+  })
+
 
   const [selectedJob, setSelectedJob] = useState();
 
@@ -43,7 +45,7 @@ const Popularjobs = ({navigation}) => {
           <Text>Something went wrong</Text>
         ) : (
           <FlatList
-            data={data}
+            data={data.data}
             renderItem={({ item }) => (
               <PopularJobCard
                 item={item}

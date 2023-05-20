@@ -19,6 +19,7 @@ import {
 } from "../../../components";
 import { COLORS, icons, SIZES } from "../../../constants";
 import useFetch from "../../../hook/useFetch";
+import { useGetJobDetailsQuery } from '../../../app/store/apiSlice';
 
 const tabs = ["About", "Qualifications", "Responsibilities"];
 
@@ -30,7 +31,7 @@ const JobDetails = ({route, navigation}) => {
   const { data, isLoading, error, refetch } = useFetch("job-details", {
     job_id: id,
   });
-
+  
   const [activeTab, setActiveTab] = useState(tabs[0]);
   const [refreshing, setRefreshing] = useState(false);
 

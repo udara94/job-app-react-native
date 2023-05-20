@@ -12,6 +12,8 @@ import JobDetails from "./app/screens/job-details/job-details";
 import { registerRootComponent } from 'expo';
 import { signOut } from "firebase/auth";
 import { auth } from "./firebase";
+import { Provider } from "react-redux";
+import { store } from "./app/store"
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +28,7 @@ const App = () => {
     return null;
   }
   return (
+    <Provider store={store}>
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
@@ -83,6 +86,8 @@ const App = () => {
         />
       </Stack.Navigator>
     </NavigationContainer>
+    </Provider>
+
   );
 };
 

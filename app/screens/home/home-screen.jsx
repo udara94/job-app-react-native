@@ -9,17 +9,10 @@ import {
   ScreenHeaderBtn,
   Welcome,
 } from "../../../components";
-import { onAuthStateChanged } from "firebase/auth";
 
 const HomeScreen = ({navigation }) => {
     const [searchTerm, setSearchTerm] = useState("");
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            console.log("user", user)
-        } else {
-            console.log("no user")
-        }
-      });
+
     return (
       <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
         <ScrollView showsVerticalScrollIndicator={false}>

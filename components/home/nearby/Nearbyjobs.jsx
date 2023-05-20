@@ -5,14 +5,14 @@ import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 import styles from "./nearbyjobs.style";
 import { COLORS } from "../../../constants";
 import NearbyJobCard from "../../common/cards/nearby/NearbyJobCard";
-import useFetch from "../../../hook/useFetch";
+import { useGetNearByJobsQuery} from "../../../app/store/apiSlice";
 
 const Nearbyjobs = ({navigation}) => {
-  // const router = useRouter();
-  const { data, isLoading, error } = useFetch("search", {
+
+  const { data, isLoading, error } = useGetNearByJobsQuery({
     query: "React Native developer",
     num_pages: "1",
-  });
+  })
 
   return (
     <View style={styles.container}>
@@ -29,7 +29,7 @@ const Nearbyjobs = ({navigation}) => {
         ) : error ? (
           <Text>Something went wrong</Text>
         ) : (
-          data?.map((job) => (
+          data?.data?.map((job) => (
             <NearbyJobCard
               job={job}
               key={`nearby-job-${job.job_id}`}
