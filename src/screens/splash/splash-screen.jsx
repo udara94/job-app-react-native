@@ -24,7 +24,7 @@ useEffect(() => {
 
   return (
     <View style={styles.container}>
-      <Image source={require('../../../assets/images/kemal.jpg')} style={styles.image} />
+      <Image source={require('../../../src/assets/images/kemal.jpg')} style={styles.image} />
     </View>
   );
 }

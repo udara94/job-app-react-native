@@ -11,8 +11,7 @@ import {
 import styles from "./popularjobs.style";
 import { COLORS, SIZES } from "../../../constants";
 import PopularJobCard from "../../common/cards/popular/PopularJobCard";
-import useFetch from "../../../hook/useFetch";
-import { useGetPopularJobsQuery, useGetJobDetailsQuery } from "../../../app/store/apiSlice";
+import { useGetPopularJobsQuery, useGetJobDetailsQuery } from "../../../store/apiSlice";
 
 const Popularjobs = ({navigation}) => {
 

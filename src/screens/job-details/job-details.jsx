@@ -16,10 +16,10 @@ import {
   JobTabs,
   ScreenHeaderBtn,
   Specifics,
-} from "../../../components";
-import { COLORS, icons, SIZES } from "../../../constants";
-import useFetch from "../../../hook/useFetch";
-import { useGetJobDetailsQuery } from '../../../app/store/apiSlice';
+} from "../../../src/components";
+import { COLORS, icons, SIZES } from "../../constants";
+import useFetch from "../../../src/hook/useFetch";
+import { useGetJobDetailsQuery } from '../../../src/store/apiSlice';
 
 const tabs = ["About", "Qualifications", "Responsibilities"];
 

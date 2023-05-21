@@ -2,13 +2,13 @@ import { useState } from "react";
 import { SafeAreaView, ScrollView, View , Text} from "react-native";
 import { Stack, useRouter } from "expo-router";
 import { auth } from '../../../firebase';
-import { COLORS, icons, images, SIZES } from "../../../constants";
+import { COLORS, icons, images, SIZES } from "../../constants";
 import {
   Nearbyjobs,
   Popularjobs,
   ScreenHeaderBtn,
   Welcome,
-} from "../../../components";
+} from "../../components";
 
 const HomeScreen = ({navigation }) => {
     const [searchTerm, setSearchTerm] = useState("");

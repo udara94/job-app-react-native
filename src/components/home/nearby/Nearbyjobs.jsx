@@ -5,7 +5,7 @@ import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 import styles from "./nearbyjobs.style";
 import { COLORS } from "../../../constants";
 import NearbyJobCard from "../../common/cards/nearby/NearbyJobCard";
-import { useGetNearByJobsQuery} from "../../../app/store/apiSlice";
+import { useGetNearByJobsQuery} from "../../../store/apiSlice";
 
 const Nearbyjobs = ({navigation}) => {
 
