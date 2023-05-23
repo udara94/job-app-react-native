@@ -1,9 +1,10 @@
-import { Text } from "react-native";
+import { Text, StatusBar } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./src/screens/home/home-screen";
 import LoginScreen from "./src/screens/login/login-screen";
 import SplashScreen from "./src/screens/splash/splash-screen";
+import SignUpScreen from "./src/screens/sign-up/sign-up";
 import { useFonts } from "expo-font";
 import { COLORS, icons, images } from "./src/constants";
 import { ScreenHeaderBtn } from "./src/components";
@@ -14,6 +15,8 @@ import { signOut } from "firebase/auth";
 import { auth } from "./firebase";
 import { Provider } from "react-redux";
 import { store } from "./src/store"
+import { ThemeProvider } from "styled-components/native";
+import { theme } from "./src/infrastructure/theme";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,7 +31,9 @@ const App = () => {
     return null;
   }
   return (
-    <Provider store={store}>
+    <ThemeProvider theme={theme}>
+      <StatusBar barStyle="light-content" />
+          <Provider store={store}>
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
@@ -40,6 +45,11 @@ const App = () => {
           options={{ headerShown: false }}
           name="Login"
           component={LoginScreen}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="SignUp"
+          component={SignUpScreen}
         />
         <Stack.Screen
           name="Home"
@@ -87,6 +97,7 @@ const App = () => {
       </Stack.Navigator>
     </NavigationContainer>
     </Provider>
+    </ThemeProvider>
 
   );
 };

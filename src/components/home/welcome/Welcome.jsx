@@ -10,15 +10,18 @@ import {
 // import { useRouter } from "expo-router";
 import styles from "./welcome.style";
 import { icons, SIZES } from "../../../constants";
+import { useSelector } from "react-redux";
 
 const jobTypes = ["Full-time", "Part-time", "Contractor"];
+
 const Welcome = ({searchTerm, setSearchTerm, handleClick, navigation}) => {
   // const router = useRouter();
   const [activeJobType, setActiveJobType] = useState("Full-time");
+  const currentUser = useSelector((state)=> state.user.currentUser)
   return (
     <View>
       <View style={styles.container}>
-        <Text style={styles.userName}>Hello Udara</Text>
+        <Text style={styles.userName}>Hello {currentUser.firstName}</Text>
         <Text style={styles.welcomeMessage}>Find your perfect job</Text>
       </View>
       <View style={styles.searchContainer}>

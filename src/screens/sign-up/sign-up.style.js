@@ -3,10 +3,6 @@ import { StyleSheet } from "react-native";
 import { COLORS, FONT, SIZES, SHADOWS } from "../../constants";
 
 const styles = StyleSheet.create({
-  // container: {
-  //   marginTop: SIZES.xLarge,
-  //   padding: SIZES.xxLarge,
-  // },
   searchWrapper: {
     flex: 1,
     backgroundColor: COLORS.gray2,
