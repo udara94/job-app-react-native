@@ -14,6 +14,8 @@ import Specifics from "./jobdetails/specifics/Specifics";
 
 // common
 import NearbyJobCard from "./common/cards/nearby/NearbyJobCard";
+import PrimaryButton from "./common/buttons/primary-button";
+import TextInputField from "./common/text-input/text-input";
 
 export {
   ScreenHeaderBtn,
@@ -25,5 +27,7 @@ export {
   JobAbout,
   JobFooter,
   Specifics,
-  NearbyJobCard
+  NearbyJobCard,
+  PrimaryButton,
+  TextInputField
 };

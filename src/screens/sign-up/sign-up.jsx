@@ -12,15 +12,19 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { auth } from "../../../firebase";
+import { addDoc, collection, doc, setDoc} from "firebase/firestore";
+import { auth, firebaseDB } from "../../../firebase";
 import { useNavigation } from "@react-navigation/core";
-import styles from "./login.style";
+import styles from "./sign-up.style";
 import { SIZES } from "../../constants";
 import { ThemeContext } from "styled-components/native";
 import { PrimaryButton, TextInputField } from "../../components";
 
-const LoginScreen = () => {
+const SignUpScreen = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
   const theme = useContext(ThemeContext);
   const navigation = useNavigation();
@@ -34,42 +38,64 @@ const LoginScreen = () => {
     return unsubscribe;
   }, []);
 
-  const gotoSignUpScreen  = () => {
-    navigation.replace("SignUp");
-  }
-
-  const handleLogin = () => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {})
-      .catch((error) => {
-        alert(error.message);
-      });
+  const gotoLoginScreen = () => {
+    navigation.replace("Login");
   };
 
-  const handleSignup = () => {
-    createUserWithEmailAndPassword(auth, email, password)
+  const handleSignUp = async() => {
+    if(firstName != "" && lastName != "" && email != "" && mobile != "" && password != ""){
+      createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
+        addUserToDb(user);
+        navigation.replace("Home");
         // ...
       })
       .catch((error) => {
         alert(error.message);
       });
+    }else{
+    alert("please enter all details")  
+    }
+   
   };
+
+  const addUserToDb = async(user)=>{
+    await setDoc(doc(firebaseDB, "Users", user.uid), {
+      firstName: firstName, 
+      lastName: lastName, 
+      email: email,
+      mobile: mobile,
+      userId: user.uid
+    })
+  }
   return (
     <KeyboardAvoidingView style={styles.container}>
       <View style={styles.container}>
-        <View>
-          <Image
-            source={require("../../../src/assets/images/job-logo.png")}
-            style={styles.image}
-          />
-        </View>
         <TextInputField
+          onChangeText={setFirstName}
+          placeholder={"First Name"}
+          value={firstName}
+        />
+
+        <TextInputField
+          onChangeText={setLastName}
+          placeholder={"Last Name"}
+          value={lastName}
+        />
+
+        <TextInputField
+          inputMode="email"
           onChangeText={setEmail}
           placeholder={"Email"}
           value={email}
+        />
+        <TextInputField
+          inputMode="numeric"
+          onChangeText={setMobile}
+          placeholder={"Mobile"}
+          value={mobile}
         />
 
         <TextInputField
@@ -84,20 +110,21 @@ const LoginScreen = () => {
             backgroundColor={theme.colors.brand.secondary}
             borderRadius={15}
             fontSize={16}
-            text={"Login"}
-            onPress={handleLogin}
+            text={"SignUp"}
+            onPress={handleSignUp}
           />
         </View>
 
         <View style={styles.signUpView}>
-          <Text style={styles.signUpText} onPress={gotoSignUpScreen} >
-            Don't have an account? Sign Up Now
+          <Text style={styles.signUpText} onPress={gotoLoginScreen}>
+            Already have an account? Login Now
           </Text>
         </View>
-        
       </View>
     </KeyboardAvoidingView>
   );
 };
 
-export default LoginScreen;
+
+
+export default SignUpScreen;

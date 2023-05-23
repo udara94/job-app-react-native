@@ -10,7 +10,6 @@ export const apiSlice = createApi({
     endpoints: (builder)=> ({
         getPopularJobs: builder.query({
             query: (params) => {
-                console.log(params);
                 return {
                     url: "search",
                     headers: {
@@ -35,8 +34,6 @@ export const apiSlice = createApi({
         }),
         getJobDetails: builder.query({
             query: (params) => {
-                console.log("qqqqqqqqqqqqqqqqqqqqq")
-                console.log(params);
                 return {
                     url: "job-details",
                     headers: {
