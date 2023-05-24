@@ -17,7 +17,7 @@ const jobTypes = ["Full-time", "Part-time", "Contractor"];
 const Welcome = ({searchTerm, setSearchTerm, handleClick, navigation}) => {
   // const router = useRouter();
   const [activeJobType, setActiveJobType] = useState("Full-time");
-  const currentUser = useSelector((state)=> state.user.currentUser)
+  const currentUser = useSelector((state)=> state.user.currentUser);
   return (
     <View>
       <View style={styles.container}>

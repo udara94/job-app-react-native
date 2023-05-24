@@ -5,6 +5,7 @@ import HomeScreen from "./src/screens/home/home-screen";
 import LoginScreen from "./src/screens/login/login-screen";
 import SplashScreen from "./src/screens/splash/splash-screen";
 import SignUpScreen from "./src/screens/sign-up/sign-up";
+import ProfileScreen from "./src/screens/profile/profile";
 import { useFonts } from "expo-font";
 import { COLORS, icons, images } from "./src/constants";
 import { ScreenHeaderBtn } from "./src/components";
@@ -54,7 +55,7 @@ const App = () => {
         <Stack.Screen
           name="Home"
           component={HomeScreen}
-          options={{
+          options={({navigation})=>({
             headerStyle: { backgroundColor: COLORS.lightWhite },
             headerShadowVisible: false,
             headerLeft: () => (
@@ -67,10 +68,13 @@ const App = () => {
               }} />
             ),
             headerRight: () => (
-              <ScreenHeaderBtn iconUrl={images.profile} dimension="100%" />
+              <ScreenHeaderBtn iconUrl={images.profile} dimension="100%" 
+              handlePress={()=>
+                navigation.push("Profile")
+              }/>
             ),
             headerTitle: "",
-          }}
+          })}
         />
         <Stack.Screen
           options={{
@@ -93,6 +97,11 @@ const App = () => {
             headerTitle: "",
           }}
           component={JobDetails}
+        />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Profile"
+          component={ProfileScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>
