@@ -1,5 +1,6 @@
 
 import { StyleSheet } from "react-native";
+import { COLORS, SIZES } from "../../constants";
 
 const styles = StyleSheet.create({
     container: {
@@ -7,17 +8,20 @@ const styles = StyleSheet.create({
         alignItems: 'center',
        // justifyContent: 'space-between',
         padding: 20,
+        backgroundColor: COLORS.black
       },
       profileContainer: {
         alignItems: 'center',
+        marginBottom: 20,
       },
       profilePicture: {
         width: 150,
         height: 150,
         borderRadius: 75,
-        marginBottom: 20,
+       // marginBottom: 20,
       },
       name: {
+        color: COLORS.white,
         fontSize: 24,
         fontWeight: 'bold',
       },
@@ -51,7 +55,31 @@ const styles = StyleSheet.create({
         right: 0,
         alignItems: "center",
         marginBottom: 20
-      }
+      },
+      btnImg: (dimension) => ({
+        //borderRadius: SIZES.small / 1.25,
+        width: 100,
+        height: 100,
+        //borderRadius: 75,
+        //marginBottom: 20,
+      
+      }),
+      btnContainer: {
+        width: 150,
+        height: 150,
+        borderRadius: 75,
+        justifyContent: "center",
+        alignItems: "center",
+        zIndex:1,
+        position:"absolute",
+        backgroundColor: COLORS.black,
+        opacity: 0.5,
+       // marginBottom: 20,
+      },
+      imageContainer: {
+        alignItems: 'center',
+        justifyContent:"center"
+      },
   });
 
   export default styles;
