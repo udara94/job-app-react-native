@@ -9,16 +9,13 @@ import { ScreenHeaderBtn } from "../../../components";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../../firebase";
 import SplashScreen from "../../../screens/splash/splash-screen";
+import { useSelector } from "react-redux";
 
 const Stack = createNativeStackNavigator();
 const AppNavigator = () => {
+  const currentUser = useSelector((state) => state.user.currentUser);
   return (
     <Stack.Navigator>
-      {/* <Stack.Screen
-        options={{ headerShown: false }}
-        name="Splash"
-        component={SplashScreen}
-      /> */}
       <Stack.Screen
         name="Home"
         component={HomeScreen}
@@ -42,7 +39,7 @@ const AppNavigator = () => {
           ),
           headerRight: () => (
             <ScreenHeaderBtn
-              iconUrl={images.profile}
+              iconUrl={ currentUser.imageUrl? {uri: currentUser.imageUrl}: images.profile}
               dimension="100%"
               handlePress={() => navigation.push("Profile")}
             />
