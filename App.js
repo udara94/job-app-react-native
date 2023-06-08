@@ -1,25 +1,12 @@
-import { Text, StatusBar } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import HomeScreen from "./src/screens/home/home-screen";
-import LoginScreen from "./src/screens/login/login-screen";
-import SplashScreen from "./src/screens/splash/splash-screen";
-import SignUpScreen from "./src/screens/sign-up/sign-up";
-import ProfileScreen from "./src/screens/profile/profile";
+import { StatusBar } from "react-native";
 import { useFonts } from "expo-font";
-import { COLORS, icons, images } from "./src/constants";
-import { ScreenHeaderBtn } from "./src/components";
-import JobSearch from "./src/screens/search/search";
-import JobDetails from "./src/screens/job-details/job-details";
-import { registerRootComponent } from 'expo';
-import { signOut } from "firebase/auth";
-import { auth } from "./firebase";
+import { registerRootComponent } from "expo";
 import { Provider } from "react-redux";
-import { store } from "./src/store"
+import { store } from "./src/store";
 import { ThemeProvider } from "styled-components/native";
 import { theme } from "./src/infrastructure/theme";
-
-const Stack = createNativeStackNavigator();
+import { NavigationContextProvider } from "./src/context/navigation.context";
+import { Navigation } from "./src/infrastructure/navigation";
 
 const App = () => {
   const [fontsLoaded] = useFonts({
@@ -34,84 +21,14 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <StatusBar barStyle="light-content" />
-          <Provider store={store}>
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name="Splash"
-          component={SplashScreen}
-        />
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name="Login"
-          component={LoginScreen}
-        />
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name="SignUp"
-          component={SignUpScreen}
-        />
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={({navigation})=>({
-            headerStyle: { backgroundColor: COLORS.lightWhite },
-            headerShadowVisible: false,
-            headerLeft: () => (
-              <ScreenHeaderBtn iconUrl={icons.menu} dimension="60%" handlePress={()=>{
-                signOut(auth).then(() => {
-                    // Sign-out successful.
-                  }).catch((error) => {
-                    // An error happened.
-                  });
-              }} />
-            ),
-            headerRight: () => (
-              <ScreenHeaderBtn iconUrl={images.profile} dimension="100%" 
-              handlePress={()=>
-                navigation.push("Profile")
-              }/>
-            ),
-            headerTitle: "",
-          })}
-        />
-        <Stack.Screen
-          options={{
-            headerStyle: { backgroundColor: COLORS.lightWhite },
-            headerShadowVisible: false,
-            headerTitle: "",
-          }}
-          name="search"
-          component={JobSearch}
-        />
-        <Stack.Screen
-          name="job-details"
-          options={{
-            headerStyle: { backgroundColor: COLORS.lightWhite },
-            headerShadowVisible: false,
-            headerBackVisible: true,
-            headerRight: () => (
-              <ScreenHeaderBtn iconUrl={icons.share} dimension="60%" />
-            ),
-            headerTitle: "",
-          }}
-          component={JobDetails}
-        />
-        <Stack.Screen
-          options={{ headerShown: false }}
-          name="Profile"
-          component={ProfileScreen}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
-    </Provider>
+      <Provider store={store}>
+        <NavigationContextProvider>
+          <Navigation />
+        </NavigationContextProvider>
+      </Provider>
     </ThemeProvider>
-
   );
 };
 
-
 registerRootComponent(App);
 export default App;
-

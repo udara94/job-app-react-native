@@ -18,25 +18,28 @@ import styles from "./login.style";
 import { SIZES } from "../../constants";
 import { ThemeContext } from "styled-components/native";
 import { PrimaryButton, TextInputField } from "../../components";
+import { NavigationContext } from "../../context/navigation.context";
+import { NavigationStatus } from "../../enums/navigation-status.enum";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const theme = useContext(ThemeContext);
   const navigation = useNavigation();
+  const { onNavigationStausChange } = useContext(NavigationContext);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        navigation.replace("Home");
+        onNavigationStausChange(NavigationStatus.Authenticated);
       }
     });
     return unsubscribe;
   }, []);
 
-  const gotoSignUpScreen  = () => {
+  const gotoSignUpScreen = () => {
     navigation.replace("SignUp");
-  }
+  };
 
   const handleLogin = () => {
     signInWithEmailAndPassword(auth, email, password)
@@ -46,17 +49,6 @@ const LoginScreen = () => {
       });
   };
 
-  const handleSignup = () => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        // ...
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
-  };
   return (
     <KeyboardAvoidingView style={styles.container}>
       <View style={styles.container}>
@@ -90,11 +82,10 @@ const LoginScreen = () => {
         </View>
 
         <View style={styles.signUpView}>
-          <Text style={styles.signUpText} onPress={gotoSignUpScreen} >
+          <Text style={styles.signUpText} onPress={gotoSignUpScreen}>
             Don't have an account? Sign Up Now
           </Text>
         </View>
-        
       </View>
     </KeyboardAvoidingView>
   );

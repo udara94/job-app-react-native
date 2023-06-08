@@ -19,6 +19,9 @@ import styles from "./sign-up.style";
 import { SIZES } from "../../constants";
 import { ThemeContext } from "styled-components/native";
 import { PrimaryButton, TextInputField } from "../../components";
+import { NavigationContext } from "../../context/navigation.context";
+import { NavigationStatus } from "../../enums/navigation-status.enum";
+
 
 const SignUpScreen = () => {
   const [firstName, setFirstName] = useState("");
@@ -28,11 +31,12 @@ const SignUpScreen = () => {
   const [password, setPassword] = useState("");
   const theme = useContext(ThemeContext);
   const navigation = useNavigation();
+  const { onNavigationStausChange } = useContext(NavigationContext);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        navigation.replace("Home");
+        onNavigationStausChange(NavigationStatus.Authenticated);
       }
     });
     return unsubscribe;
@@ -49,7 +53,7 @@ const SignUpScreen = () => {
         // Signed in
         const user = userCredential.user;
         addUserToDb(user);
-        navigation.replace("Home");
+       // navigation.replace("Home");
         // ...
       })
       .catch((error) => {

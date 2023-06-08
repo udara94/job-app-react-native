@@ -80,6 +80,20 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent:"center"
       },
+      bottomContainer: (width, height)=>({
+        flex: 2,
+        padding: 24,
+        backgroundColor: "transparent",
+        width: width,
+        height: height,
+        zIndex:1,
+        position:"absolute",
+      }),
+      contentContainer: {
+        flex: 2,
+        alignItems: 'center',
+        backgroundColor: "transparent",
+      },
   });
 
   export default styles;

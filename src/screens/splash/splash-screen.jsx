@@ -7,19 +7,22 @@ import styles from "./splash.style";
 import { doc, getDoc } from "firebase/firestore";
 import { useDispatch } from "react-redux";
 import { userSlice } from "../../store/userSlice";
+import { NavigationContext} from "../../context/navigation.context";
+import { NavigationStatus } from "../../enums/navigation-status.enum";
 
 export default function SplashScreen({ navigation }) {
   const theme = useContext(ThemeContext);
   const dispatch = useDispatch();
+  const {onNavigationStausChange} = useContext(NavigationContext);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       onAuthStateChanged(auth, async (user) => {
         if (user) {
           await getUserDetails(user)
-          navigation.replace("Home");
+          onNavigationStausChange(NavigationStatus.Authenticated);
         } else {
-          navigation.replace("Login");
+          onNavigationStausChange(NavigationStatus.NotAuthenticatd);
         }
       });
     }, 3000);
