@@ -7,7 +7,6 @@ import React, {
   useMemo,
 } from "react";
 import { useNavigation } from "@react-navigation/core";
-import { ThemeContext } from "styled-components/native";
 import styles from "./profile.style";
 import { ProfileTextField, PrimaryButton } from "../../components";
 import { useSelector } from "react-redux";
@@ -22,10 +21,11 @@ import {
 } from "@gorhom/bottom-sheet";
 import * as ImagePicker from "expo-image-picker";
 import { checkImageURL } from "../../utils";
+import { COLORS } from "../../constants";  
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
-  const theme = useContext(ThemeContext);
+  // const theme = useContext(ThemeContext);
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.user.currentUser);
   const [isEditMode, setEditMode] = useState(false);
@@ -194,7 +194,7 @@ const ProfileScreen = () => {
       </BottomSheetModal> */}
         <View style={styles.actionButton}>
           <PrimaryButton
-            backgroundColor={theme.colors.brand.secondary}
+            backgroundColor={COLORS.secondary}
             borderRadius={15}
             fontSize={16}
             text={isEditMode ? "Save Changes" : "Edit Profile"}

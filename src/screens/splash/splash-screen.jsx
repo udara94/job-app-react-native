@@ -1,17 +1,17 @@
-import { StyleSheet, View, Image, Text } from "react-native";
+import { View, Image } from "react-native";
 import React, { useEffect, useContext } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, firebaseDB } from "../../../firebase";
-import { ThemeContext } from "styled-components/native";
 import styles from "./splash.style";
 import { doc, getDoc } from "firebase/firestore";
 import { useDispatch } from "react-redux";
 import { userSlice } from "../../store/userSlice";
 import { NavigationContext} from "../../context/navigation.context";
 import { NavigationStatus } from "../../enums/navigation-status.enum";
+import { COLORS } from "../../constants";
 
 export default function SplashScreen({ navigation }) {
-  const theme = useContext(ThemeContext);
+  //const theme = useContext(ThemeContext);
   const dispatch = useDispatch();
   const {onNavigationStausChange} = useContext(NavigationContext);
 
@@ -43,7 +43,7 @@ export default function SplashScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container(theme.colors.brand.primary)}>
+    <View style={styles.container(COLORS.black)}>
       <Image
         source={require("../../../src/assets/images/job-logo.png")}
         style={styles.image}

@@ -16,8 +16,7 @@ import { addDoc, collection, doc, setDoc} from "firebase/firestore";
 import { auth, firebaseDB } from "../../../firebase";
 import { useNavigation } from "@react-navigation/core";
 import styles from "./sign-up.style";
-import { SIZES } from "../../constants";
-import { ThemeContext } from "styled-components/native";
+import { SIZES, COLORS } from "../../constants";
 import { PrimaryButton, TextInputField } from "../../components";
 import { NavigationContext } from "../../context/navigation.context";
 import { NavigationStatus } from "../../enums/navigation-status.enum";
@@ -29,7 +28,7 @@ const SignUpScreen = () => {
   const [email, setEmail] = useState("");
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
-  const theme = useContext(ThemeContext);
+ // const theme = useContext(ThemeContext);
   const navigation = useNavigation();
   const { onNavigationStausChange } = useContext(NavigationContext);
 
@@ -111,7 +110,7 @@ const SignUpScreen = () => {
 
         <View style={styles.buttonView}>
           <PrimaryButton
-            backgroundColor={theme.colors.brand.secondary}
+            backgroundColor={COLORS.secondary}
             borderRadius={15}
             fontSize={16}
             text={"SignUp"}
