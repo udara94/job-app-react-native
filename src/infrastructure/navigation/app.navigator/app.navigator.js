@@ -4,47 +4,19 @@ import HomeScreen from "../../../screens/home/home-screen";
 import ProfileScreen from "../../../screens/profile/profile";
 import JobSearch from "../../../screens/search/search";
 import JobDetails from "../../../screens/job-details/job-details";
-import { COLORS, icons, images } from "../../../constants";
+import { COLORS, icons } from "../../../constants";
 import { ScreenHeaderBtn } from "../../../components";
-import { signOut } from "firebase/auth";
-import { auth } from "../../../../firebase";
-import SplashScreen from "../../../screens/splash/splash-screen";
-import { useSelector } from "react-redux";
+import DrawerNavigator from "../drawer.navigator/drawer.navigator";
 
 const Stack = createNativeStackNavigator();
 const AppNavigator = () => {
-  const currentUser = useSelector((state) => state.user.currentUser);
   return (
     <Stack.Navigator>
       <Stack.Screen
         name="Home"
-        component={HomeScreen}
+        component={DrawerNavigator}
         options={({ navigation }) => ({
-          headerStyle: { backgroundColor: COLORS.lightWhite },
-          headerShadowVisible: false,
-          headerLeft: () => (
-            <ScreenHeaderBtn
-              iconUrl={icons.menu}
-              dimension="60%"
-              handlePress={() => {
-                signOut(auth)
-                  .then(() => {
-                    // Sign-out successful.
-                  })
-                  .catch((error) => {
-                    // An error happened.
-                  });
-              }}
-            />
-          ),
-          headerRight: () => (
-            <ScreenHeaderBtn
-              iconUrl={ currentUser.imageUrl? {uri: currentUser.imageUrl}: images.profile}
-              dimension="100%"
-              handlePress={() => navigation.push("Profile")}
-            />
-          ),
-          headerTitle: "",
+          headerShown: false
         })}
       />
       <Stack.Screen
