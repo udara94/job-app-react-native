@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-const styles = StyleSheet.create({
+const styles = theme => StyleSheet.create({
     button: {
       paddingVertical: 10,
       paddingHorizontal: 20,
@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
     },
     buttonText: {
-      color: 'white',
+      color: theme.text.inverse,
       fontWeight: 'bold',
     },
   });

@@ -1,5 +1,11 @@
 import React, { createContext } from "react";
 
-const ThemeContext = createContext();
+export const ThemeContext = createContext();
 
-export default ThemeContext;
+const ThemeProvider = ({ children, theme }) => {
+  return (
+    <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>
+  );
+};
+
+export default ThemeProvider;

@@ -1,8 +1,8 @@
 import { StyleSheet } from "react-native";
 
-import { FONT, SIZES, COLORS } from "../../../constants";
+import { FONT, SIZES } from "../../../constants";
 
-const styles = StyleSheet.create({
+const styles = theme => StyleSheet.create({
   container: {
     marginTop: SIZES.xLarge,
   },
@@ -14,12 +14,12 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: SIZES.large,
     fontFamily: FONT.medium,
-    color: COLORS.primary,
+    color: theme.text.primary,
   },
   headerBtn: {
     fontSize: SIZES.medium,
     fontFamily: FONT.medium,
-    color: COLORS.gray,
+    color: theme.text.label,
   },
   cardsContainer: {
     marginTop: SIZES.medium,

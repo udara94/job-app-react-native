@@ -1,8 +1,8 @@
 import { StyleSheet } from "react-native";
 
-import { COLORS, SHADOWS, SIZES } from "../../../../constants";
+import { SHADOWS, SIZES } from "../../../../constants";
 
-const styles = StyleSheet.create({
+const styles = theme => StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "space-between",
@@ -10,14 +10,14 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: SIZES.medium,
     borderRadius: SIZES.small,
-    backgroundColor: "#FFF",
+    backgroundColor: theme.card.primary,
     ...SHADOWS.medium,
-    shadowColor: COLORS.white,
+    shadowColor: theme.bg.primary,
   },
   logoContainer: {
     width: 50,
     height: 50,
-    backgroundColor: COLORS.white,
+    backgroundColor:  theme.bg.primary,
     borderRadius: SIZES.medium,
     justifyContent: "center",
     alignItems: "center",
@@ -33,12 +33,12 @@ const styles = StyleSheet.create({
   jobName: {
     fontSize: SIZES.medium,
     fontFamily: "DMBold",
-    color: COLORS.primary,
+    color: theme.text.primary,
   },
   jobType: {
     fontSize: SIZES.small + 2,
     fontFamily: "DMRegular",
-    color: COLORS.gray,
+    color: theme.text.label,
     marginTop: 3,
     textTransform: "capitalize",
   },

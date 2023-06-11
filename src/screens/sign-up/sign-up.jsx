@@ -12,14 +12,15 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { addDoc, collection, doc, setDoc} from "firebase/firestore";
+import { doc, setDoc} from "firebase/firestore";
 import { auth, firebaseDB } from "../../../firebase";
 import { useNavigation } from "@react-navigation/core";
 import styles from "./sign-up.style";
-import { SIZES, COLORS } from "../../constants";
 import { PrimaryButton, TextInputField } from "../../components";
 import { NavigationContext } from "../../context/navigation.context";
 import { NavigationStatus } from "../../enums/navigation-status.enum";
+import useTheme from "../../hook/useTheme";
+import useThemedStyles from "../../hook/useThemedStyles";
 
 
 const SignUpScreen = () => {
@@ -31,6 +32,8 @@ const SignUpScreen = () => {
  // const theme = useContext(ThemeContext);
   const navigation = useNavigation();
   const { onNavigationStausChange } = useContext(NavigationContext);
+  const theme = useTheme();
+  const style = useThemedStyles(styles);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -74,8 +77,8 @@ const SignUpScreen = () => {
     })
   }
   return (
-    <KeyboardAvoidingView style={styles.container}>
-      <View style={styles.container}>
+    <KeyboardAvoidingView style={style.container}>
+      <View style={style.container}>
         <TextInputField
           onChangeText={setFirstName}
           placeholder={"First Name"}
@@ -108,9 +111,9 @@ const SignUpScreen = () => {
           value={password}
         />
 
-        <View style={styles.buttonView}>
+        <View style={style.buttonView}>
           <PrimaryButton
-            backgroundColor={COLORS.secondary}
+            backgroundColor={theme.button.primary}
             borderRadius={15}
             fontSize={16}
             text={"SignUp"}
@@ -118,8 +121,8 @@ const SignUpScreen = () => {
           />
         </View>
 
-        <View style={styles.signUpView}>
-          <Text style={styles.signUpText} onPress={gotoLoginScreen}>
+        <View style={style.signUpView}>
+          <Text style={style.signUpText} onPress={gotoLoginScreen}>
             Already have an account? Login Now
           </Text>
         </View>

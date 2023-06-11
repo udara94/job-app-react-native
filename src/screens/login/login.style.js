@@ -1,43 +1,13 @@
 import { StyleSheet } from "react-native";
 
-import { COLORS, FONT, SIZES, SHADOWS } from "../../constants";
+import { SIZES } from "../../constants";
 
-const styles = StyleSheet.create({
-  // container: {
-  //   marginTop: SIZES.xLarge,
-  //   padding: SIZES.xxLarge,
-  // },
-  searchWrapper: {
-    flex: 1,
-    backgroundColor: COLORS.gray2,
-    marginRight: SIZES.small,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: SIZES.medium,
-    height: "100%",
-    ...SHADOWS.medium,
-    shadowColor: COLORS.primary,
-  },
-  searchInput: {
-    fontFamily: FONT.regular,
-    width: "100%",
-    height: "100%",
-    paddingHorizontal: SIZES.medium,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  searchContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-    margin: SIZES.large,
-    height: 50,
-  },
+const styles = theme => StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: COLORS.black
+    backgroundColor: theme.bg.primary
   },
   input: {
     borderWidth: 1,
@@ -46,15 +16,9 @@ const styles = StyleSheet.create({
     margin: 10,
     width: 200,
   },
-  button: {
-    backgroundColor: "#4286f4",
-    padding: 10,
-    margin: 10,
-    borderRadius: 5,
-  },
   signUpText: {
     margin: SIZES.large,
-    color: "#fff",
+    color: theme.text.primary,
     fontWeight: "bold",
     textDecorationLine: "underline"
   },

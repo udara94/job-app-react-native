@@ -15,10 +15,11 @@ import {
 import { auth } from "../../../firebase";
 import { useNavigation } from "@react-navigation/core";
 import styles from "./login.style";
-import { SIZES, COLORS } from "../../constants";
 import { PrimaryButton, TextInputField } from "../../components";
 import { NavigationContext } from "../../context/navigation.context";
 import { NavigationStatus } from "../../enums/navigation-status.enum";
+import useTheme from "../../hook/useTheme";
+import useThemedStyles from "../../hook/useThemedStyles";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -26,6 +27,8 @@ const LoginScreen = () => {
   //const theme = useContext(ThemeContext);
   const navigation = useNavigation();
   const { onNavigationStausChange } = useContext(NavigationContext);
+  const theme = useTheme();
+  const style = useThemedStyles(styles);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -49,12 +52,12 @@ const LoginScreen = () => {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container}>
-      <View style={styles.container}>
+    <KeyboardAvoidingView style={style.container}>
+      <View style={style.container}>
         <View>
           <Image
             source={require("../../../src/assets/images/job-logo.png")}
-            style={styles.image}
+            style={style.image}
           />
         </View>
         <TextInputField
@@ -70,9 +73,9 @@ const LoginScreen = () => {
           value={password}
         />
 
-        <View style={styles.buttonView}>
+        <View style={style.buttonView}>
           <PrimaryButton
-            backgroundColor={COLORS.secondary}
+            backgroundColor={theme.button.primary}
             borderRadius={15}
             fontSize={16}
             text={"Login"}
@@ -80,8 +83,8 @@ const LoginScreen = () => {
           />
         </View>
 
-        <View style={styles.signUpView}>
-          <Text style={styles.signUpText} onPress={gotoSignUpScreen}>
+        <View style={style.signUpView}>
+          <Text style={style.signUpText} onPress={gotoSignUpScreen}>
             Don't have an account? Sign Up Now
           </Text>
         </View>

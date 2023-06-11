@@ -1,14 +1,13 @@
 
 import { StyleSheet } from "react-native";
-import { COLORS, SIZES } from "../../constants";
 
-const styles = StyleSheet.create({
+const styles = theme => StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
        // justifyContent: 'space-between',
         padding: 20,
-        backgroundColor: COLORS.black
+        backgroundColor: theme.bg.primary
       },
       profileContainer: {
         alignItems: 'center',
@@ -21,7 +20,7 @@ const styles = StyleSheet.create({
        // marginBottom: 20,
       },
       name: {
-        color: COLORS.white,
+        color: theme.text.primary,
         fontSize: 24,
         fontWeight: 'bold',
       },
@@ -35,17 +34,6 @@ const styles = StyleSheet.create({
       mobile: {
         fontSize: 16,
         marginBottom: 20,
-      },
-      button: {
-        backgroundColor: '#2980b9',
-        paddingVertical: 10,
-        paddingHorizontal: 20,
-        borderRadius: 5,
-      },
-      buttonText: {
-        color: '#fff',
-        fontSize: 16,
-        fontWeight: 'bold',
       },
       actionButton:{
         alignSelf: 'flex-end',
@@ -72,7 +60,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         zIndex:1,
         position:"absolute",
-        backgroundColor: COLORS.black,
+        backgroundColor: theme.ui.quaternary,
         opacity: 0.5,
        // marginBottom: 20,
       },

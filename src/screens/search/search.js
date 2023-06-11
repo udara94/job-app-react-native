@@ -11,8 +11,10 @@ import { Text, SafeAreaView } from "react-native";
 import axios from "axios";
 
 import { ScreenHeaderBtn, NearbyJobCard } from "../../components";
-import { COLORS, icons, SIZES } from "../../constants";
-import styles from "../../../src/styles/search";
+import { icons, SIZES } from "../../constants";
+import styles from "./search.style";
+import useTheme from "../../hook/useTheme";
+import useThemedStyles from "../../hook/useThemedStyles";
 
 const JobSearch = ({ route, navigation }) => {
   // const params = useSearchParams();
@@ -24,6 +26,8 @@ const JobSearch = ({ route, navigation }) => {
   const [searchError, setSearchError] = useState(null);
   const [page, setPage] = useState(1);
   const apiKey = process.env.RAPID_API_KEY;
+  const theme = useTheme()
+  const style = useThemedStyles(styles);
 
   const handleSearch = async () => {
     setSearchLoader(true);
@@ -67,7 +71,7 @@ const JobSearch = ({ route, navigation }) => {
   }, []);
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: theme.bg.primary }}>
       <FlatList
         data={searchResult}
         renderItem={({ item }) => (
@@ -82,13 +86,13 @@ const JobSearch = ({ route, navigation }) => {
         contentContainerStyle={{ padding: SIZES.medium, rowGap: SIZES.medium }}
         ListHeaderComponent={() => (
           <>
-            <View style={styles.container}>
-              <Text style={styles.searchTitle}>{params.id}</Text>
-              <Text style={styles.noOfSearchedJobs}>Job Opportunities</Text>
+            <View style={style.container}>
+              <Text style={style.searchTitle}>{term}</Text>
+              <Text style={style.noOfSearchedJobs}>Job Opportunities</Text>
             </View>
-            <View style={styles.loaderContainer}>
+            <View style={style.loaderContainer}>
               {searchLoader ? (
-                <ActivityIndicator size="large" color={COLORS.primary} />
+                <ActivityIndicator size="large" color={theme.text.primary} />
               ) : (
                 searchError && <Text>Oops something went wrong</Text>
               )}
@@ -96,27 +100,27 @@ const JobSearch = ({ route, navigation }) => {
           </>
         )}
         ListFooterComponent={() => (
-          <View style={styles.footerContainer}>
+          <View style={style.footerContainer}>
             <TouchableOpacity
-              style={styles.paginationButton}
+              style={style.paginationButton}
               onPress={() => handlePagination("left")}
             >
               <Image
                 source={icons.chevronLeft}
-                style={styles.paginationImage}
+                style={style.paginationImage}
                 resizeMode="contain"
               />
             </TouchableOpacity>
-            <View style={styles.paginationTextBox}>
-              <Text style={styles.paginationText}>{page}</Text>
+            <View style={style.paginationTextBox}>
+              <Text style={style.paginationText}>{page}</Text>
             </View>
             <TouchableOpacity
-              style={styles.paginationButton}
+              style={style.paginationButton}
               onPress={() => handlePagination("right")}
             >
               <Image
                 source={icons.chevronRight}
-                style={styles.paginationImage}
+                style={style.paginationImage}
                 resizeMode="contain"
               />
             </TouchableOpacity>

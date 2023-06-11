@@ -9,11 +9,13 @@ import { userSlice } from "../../store/userSlice";
 import { NavigationContext} from "../../context/navigation.context";
 import { NavigationStatus } from "../../enums/navigation-status.enum";
 import { COLORS } from "../../constants";
+import useTheme from "../../hook/useTheme";
 
 export default function SplashScreen({ navigation }) {
   //const theme = useContext(ThemeContext);
   const dispatch = useDispatch();
   const {onNavigationStausChange} = useContext(NavigationContext);
+  const theme = useTheme();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -43,7 +45,7 @@ export default function SplashScreen({ navigation }) {
   };
 
   return (
-    <View style={styles.container(COLORS.black)}>
+    <View style={styles.container(theme.bg.primary)}>
       <Image
         source={require("../../../src/assets/images/job-logo.png")}
         style={styles.image}

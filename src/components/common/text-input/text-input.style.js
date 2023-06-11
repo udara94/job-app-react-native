@@ -1,9 +1,9 @@
 import { StyleSheet } from "react-native";
 
-import { COLORS, FONT, SIZES, SHADOWS } from "../../../constants";
+import { FONT, SIZES, SHADOWS } from "../../../constants";
 
 
-const styles = StyleSheet.create({
+const styles = theme => StyleSheet.create({
     searchInput: {
     fontFamily: FONT.regular,
     width: "100%",
@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: SIZES.medium,
     justifyContent: "center",
     alignItems: "center",
+    marginLeft: SIZES.large
    },
    searchContainer:{
     justifyContent: "center",
@@ -22,13 +23,13 @@ const styles = StyleSheet.create({
    },
    searchWrapper:{
     flex: 1,
-    backgroundColor: COLORS.gray2,
+    backgroundColor: theme.bg.primary,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: SIZES.medium,
     height: "100%",
     ...SHADOWS.medium,
-    shadowColor: COLORS.primary,
+    shadowColor: theme.text.primary,
    }
 })
 

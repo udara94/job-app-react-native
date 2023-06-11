@@ -1,21 +1,21 @@
 import { StyleSheet } from "react-native";
 
-import { COLORS, FONT, SIZES } from "../constants";
+import { COLORS, FONT, SIZES } from "../../constants";
 
-const styles = StyleSheet.create({
+const styles =theme=> StyleSheet.create({
     container: {
         width: "100%",
     },
     searchTitle: {
         fontFamily: FONT.bold,
         fontSize: SIZES.xLarge,
-        color: COLORS.primary,
+        color: theme.text.primary,
     },
     noOfSearchedJobs: {
         marginTop: 2,
         fontFamily: FONT.medium,
         fontSize: SIZES.small,
-        color: COLORS.primary,
+        color: theme.text.primary,
     },
     loaderContainer: {
         marginTop: SIZES.medium
@@ -33,12 +33,12 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: COLORS.tertiary
+        backgroundColor: theme.bg.tertiary
     },
     paginationImage: {
         width: '60%',
         height: '60%',
-        tintColor: COLORS.white
+        tintColor: theme.tint.primary
     },
     paginationTextBox: {
         width: 30,
@@ -46,12 +46,12 @@ const styles = StyleSheet.create({
         borderRadius: 2,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: COLORS.white
+        backgroundColor: theme.tint.primary
     },
     paginationText: {
         fontFamily: FONT.bold,
         fontSize: SIZES.medium,
-        color: COLORS.primary
+        color: theme.ui.primary
     }
 });
 

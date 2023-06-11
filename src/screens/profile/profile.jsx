@@ -20,8 +20,8 @@ import {
   BottomSheetModalProvider,
 } from "@gorhom/bottom-sheet";
 import * as ImagePicker from "expo-image-picker";
-import { checkImageURL } from "../../utils";
-import { COLORS } from "../../constants";  
+import useTheme from "../../hook/useTheme";
+import useThemedStyles from "../../hook/useThemedStyles";
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
@@ -30,6 +30,8 @@ const ProfileScreen = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
   const [isEditMode, setEditMode] = useState(false);
   const { width, height } = Dimensions.get("window");
+  const theme = useTheme();
+  const style = useThemedStyles(styles);
 
   const [firstName, setFirstName] = useState(currentUser.firstName);
   const [lastName, setLastName] = useState(currentUser.lastName);
@@ -125,30 +127,30 @@ const ProfileScreen = () => {
 
   return (
     <BottomSheetModalProvider>
-      <View style={styles.container}>
-        <View style={styles.profileContainer}>
-          <View style={styles.imageContainer}>
+      <View style={style.container}>
+        <View style={style.profileContainer}>
+          <View style={style.imageContainer}>
             {imageUrl != null && imageUrl != "" ? (
-              <Image source={{ uri: imageUrl }} style={styles.profilePicture} />
+              <Image source={{ uri: imageUrl }} style={style.profilePicture} />
             ) : (
               <Image source={require("../../../src/assets/images/job-logo.png")} style={styles.profilePicture} />
             )}
 
             {isEditMode ? (
-              <TouchableOpacity style={styles.btnContainer} onPress={pickImage}>
+              <TouchableOpacity style={style.btnContainer} onPress={pickImage}>
                 <Image
                   source={require("../../../src/assets/icons/camera.png")}
-                  style={styles.btnImg("60%")}
+                  style={style.btnImg("60%")}
                 />
               </TouchableOpacity>
             ) : null}
           </View>
 
-          <Text style={styles.name}>
+          <Text style={style.name}>
             {firstName} {lastName}
           </Text>
         </View>
-        <View style={styles.infoContainer}>
+        <View style={style.infoContainer}>
           <ProfileTextField
             fieldValue={firstName}
             fieldName={"First Name"}
@@ -192,9 +194,9 @@ const ProfileScreen = () => {
           <Text>Awesome 🎉</Text>
         </View>
       </BottomSheetModal> */}
-        <View style={styles.actionButton}>
+        <View style={style.actionButton}>
           <PrimaryButton
-            backgroundColor={COLORS.secondary}
+            backgroundColor={theme.button.primary}
             borderRadius={15}
             fontSize={16}
             text={isEditMode ? "Save Changes" : "Edit Profile"}

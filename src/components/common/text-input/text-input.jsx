@@ -1,6 +1,8 @@
 import React from "react";
 import { TextInput, View, Dimensions } from "react-native";
 import styles from "./text-input.style";
+import useThemedStyles from "../../../hook/useThemedStyles";
+import useTheme from "../../../hook/useTheme";
 const { width } = Dimensions.get("window");
 const textInputDefaultWidth = width * 0.8;
 
@@ -12,14 +14,17 @@ const TextInputField = ({
   textInputWidth = textInputDefaultWidth,
   inputMode = "text"
 }) => {
+  const theme = useTheme();
+  const style = useThemedStyles(styles);
   return (
-    <View style={[styles.searchContainer, { width: textInputWidth }]}>
-      <View style={styles.searchWrapper}>
+    <View style={[style.searchContainer, { width: textInputWidth }]}>
+      <View style={style.searchWrapper}>
         <TextInput
         inputMode={inputMode}
         selectionColor={"red"}
-          style={styles.searchInput}
+          style={style.searchInput}
           placeholder={placeholder}
+          placeholderTextColor={theme.text.primary}
           value={value}
           onChangeText={onChangeText}
           secureTextEntry={secureTextEntry}

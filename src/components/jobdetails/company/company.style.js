@@ -1,8 +1,8 @@
 import { StyleSheet } from "react-native";
 
-import { COLORS, FONT, SIZES } from "../../../constants";
+import { FONT, SIZES } from "../../../constants";
 
-const styles = StyleSheet.create({
+const styles = theme => StyleSheet.create({
   container: {
     marginVertical: SIZES.medium,
     justifyContent: "center",
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   },
   jobTitle: {
     fontSize: SIZES.large,
-    color: COLORS.primary,
+    color: theme.text.primary,
     fontFamily: FONT.bold,
     textAlign: "center",
   },
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   },
   companyName: {
     fontSize: SIZES.medium - 2,
-    color: COLORS.primary,
+    color: theme.text.primary,
     fontFamily: FONT.medium,
   },
   locationBox: {
@@ -48,11 +48,11 @@ const styles = StyleSheet.create({
   locationImage: {
     width: 14,
     height: 14,
-    tintColor: COLORS.gray,
+    tintColor: theme.text.label,
   },
   locationName: {
     fontSize: SIZES.medium - 2,
-    color: COLORS.gray,
+    color: theme.text.label,
     fontFamily: FONT.regular,
     marginLeft: 2,
   },

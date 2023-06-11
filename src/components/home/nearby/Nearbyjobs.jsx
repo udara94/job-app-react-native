@@ -3,9 +3,10 @@ import React from "react";
 import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 
 import styles from "./nearbyjobs.style";
-import { COLORS } from "../../../constants";
 import NearbyJobCard from "../../common/cards/nearby/NearbyJobCard";
 import { useGetNearByJobsQuery} from "../../../store/apiSlice";
+import useThemedStyles from "../../../hook/useThemedStyles";
+import useTheme from "../../../hook/useTheme";
 
 const Nearbyjobs = ({navigation}) => {
 
@@ -13,19 +14,21 @@ const Nearbyjobs = ({navigation}) => {
     query: "React Native developer",
     num_pages: "1",
   })
+  const theme = useTheme();
+  const style = useThemedStyles(styles);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Nearby jobs</Text>
+    <View style={style.container}>
+      <View style={style.header}>
+        <Text style={style.headerTitle}>Nearby jobs</Text>
         <TouchableOpacity>
-          <Text style={styles.headerBtn}>Show all</Text>
+          <Text style={style.headerBtn}>Show all</Text>
         </TouchableOpacity>
       </View>
 
-      <View style={styles.cardsContainer}>
+      <View style={style.cardsContainer}>
         {isLoading ? (
-          <ActivityIndicator size='large' color={COLORS.primary} />
+          <ActivityIndicator size='large' color={theme.ui.primary} />
         ) : error ? (
           <Text>Something went wrong</Text>
         ) : (

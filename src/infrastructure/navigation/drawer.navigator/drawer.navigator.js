@@ -1,20 +1,36 @@
-import { COLORS, icons, images, SIZES } from "../../../constants";
+import { icons, images, SIZES } from "../../../constants";
 import { useSelector } from "react-redux";
 import { ScreenHeaderBtn } from "../../../components";
-import { createDrawerNavigator } from "@react-navigation/drawer";
+import { createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList } from "@react-navigation/drawer";
 import HomeScreen from "../../../screens/home/home-screen";
+import useTheme from "../../../hook/useTheme";
+import { auth } from "../../../../firebase";
+import { signOut } from "firebase/auth";
 
 const Drawer = createDrawerNavigator();
 const DrawerNavigator = () => {
   const currentUser = useSelector((state) => state.user.currentUser);
+  const theme = useTheme();
   return (
-    <Drawer.Navigator initialRouteName="HomeDrawer">
+    <Drawer.Navigator 
+    initialRouteName="HomeDrawer"
+    drawerContent={(props)=>{
+      return (
+        <DrawerContentScrollView {...props}>
+          <DrawerItemList {...props}/>
+          <DrawerItem label={"logout"} onPress={()=>{
+            signOut(auth);
+          }}/>
+        </DrawerContentScrollView>
+      )
+    }}
+    >
       <Drawer.Screen
         name="HomeDrawer"
         component={HomeScreen}
         options={({ navigation }) => ({
           headerStyle: {
-            backgroundColor: COLORS.lightWhite,
+            backgroundColor: theme.bg.primary,
           },
           headerLeftContainerStyle: {
             padding: 15,

@@ -1,15 +1,15 @@
 import { StyleSheet } from "react-native";
 
-import { COLORS, FONT, SIZES } from "../../../constants";
+import { FONT, SIZES } from "../../../constants";
 
-const styles = StyleSheet.create({
+const styles = theme => StyleSheet.create({
   container: {
     position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,
     padding: SIZES.small,
-    backgroundColor: "#FFF",
+    backgroundColor: theme.bg.primary,
     justifyContent: "space-between",
     alignItems: "center",
     flexDirection: "row",
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   },
   applyBtnText: {
     fontSize: SIZES.medium,
-    color: COLORS.white,
+    color: theme.text.inverse,
     fontFamily: FONT.bold,
   },
 });

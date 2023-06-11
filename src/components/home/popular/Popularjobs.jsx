@@ -9,9 +9,11 @@ import {
 } from "react-native";
 
 import styles from "./popularjobs.style";
-import { COLORS, SIZES } from "../../../constants";
+import { SIZES } from "../../../constants";
 import PopularJobCard from "../../common/cards/popular/PopularJobCard";
 import { useGetPopularJobsQuery, useGetJobDetailsQuery } from "../../../store/apiSlice";
+import useThemedStyles from "../../../hook/useThemedStyles";
+import useTheme from "../../../hook/useTheme";
 
 const Popularjobs = ({navigation}) => {
 
@@ -22,6 +24,8 @@ const Popularjobs = ({navigation}) => {
 
 
   const [selectedJob, setSelectedJob] = useState();
+  const theme = useTheme();
+  const style = useThemedStyles(styles);
 
   const handleCardPress = (item) => {
     navigation.push("job-details" ,{id: item.job_id});
@@ -29,17 +33,17 @@ const Popularjobs = ({navigation}) => {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Popular jobs</Text>
+    <View style={style.container}>
+      <View style={style.header}>
+        <Text style={style.headerTitle}>Popular jobs</Text>
         <TouchableOpacity>
-          <Text style={styles.headerBtn}>Show all</Text>
+          <Text style={style.headerBtn}>Show all</Text>
         </TouchableOpacity>
       </View>
 
-      <View style={styles.cardsContainer}>
+      <View style={style.cardsContainer}>
         {isLoading ? (
-          <ActivityIndicator size='large' color={COLORS.primary} />
+          <ActivityIndicator size='large' color={theme.ui.primary} />
         ) : error ? (
           <Text>Something went wrong</Text>
         ) : (

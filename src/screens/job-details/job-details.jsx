@@ -17,9 +17,12 @@ import {
   ScreenHeaderBtn,
   Specifics,
 } from "../../../src/components";
-import { COLORS, icons, SIZES } from "../../constants";
+import { SIZES } from "../../constants";
 import useFetch from "../../../src/hook/useFetch";
 import { useGetJobDetailsQuery } from '../../../src/store/apiSlice';
+import useTheme from "../../hook/useTheme";
+import useThemedStyles from "../../hook/useThemedStyles";
+import styles from "./job.details.styles";
 
 const tabs = ["About", "Qualifications", "Responsibilities"];
 
@@ -70,15 +73,17 @@ const JobDetails = ({route, navigation}) => {
     }
   };
 
+  const theme = useTheme();
+  const style = useThemedStyles(styles)
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
+    <SafeAreaView style={style.safeArea}>
       <>
         <ScrollView showsVerticalScrollIndicator={false}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
         >
           {isLoading ? (
-            <ActivityIndicator size='large' color={COLORS.primary} />
+            <ActivityIndicator size='large' color={theme.ui.primary} />
           ) : error ? (
             <Text>Something went wrong</Text>
           ) : data.length === 0 ? (

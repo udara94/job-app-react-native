@@ -1,37 +1,37 @@
 import { StyleSheet } from "react-native";
-import { FONT, SIZES, COLORS, SHADOWS } from "../../../constants";
+import { FONT, SIZES, SHADOWS } from "../../../constants";
 
 
-const styles = StyleSheet.create({
+const styles = theme => StyleSheet.create({
     searchInput: {
         fontFamily: FONT.regular,
         width: "100%",
         height: "100%",
         paddingHorizontal: SIZES.medium,
         justifyContent: "center",
-        backgroundColor: COLORS.black,
+        backgroundColor: theme.bg.primary,
         borderRadius: SIZES.medium,
         alignItems: "center",
-        color: COLORS.white,
+        color: theme.text.primary,
         fontWeight: 'bold'
        },
        searchWrapper:{
         flex: 1,
-        backgroundColor: COLORS.black,
+        backgroundColor: theme.bg.inverse,
         justifyContent: "center",
         alignItems: "center",
         borderRadius: SIZES.medium,
         height: "100%",
         ...SHADOWS.medium,
-        shadowColor: COLORS.primary,
+        shadowColor: theme.text.inverse,
        },
        labelContainer: {
-        backgroundColor: COLORS.black, // Same color as background
+        backgroundColor: theme.bg.primary, // Same color as background
         alignSelf: "flex-start", // Have View be same width as Text inside
         paddingHorizontal: 3, // Amount of spacing between border and first/last letter
         marginStart: 10, // How far right do you want the label to start
         zIndex: 1, // Label must overlap border
-        elevation: 1, // Needed for android
+       // elevation: 1, // Needed for android
         position: "absolute", // Needed to be able to precisely overlap label with border
         top: -9, // Vertical position of label. Eyeball it to see where label intersects border.
     },
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "row",
-        borderColor: "red"
+        borderColor: theme.ui.primary
     },
     parent: {
         marginTop: SIZES.xLarge,
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     },
     fieldName:{
         fontSize: 10,
-        color: COLORS.white
+        color: theme.text.primary
     }
 })
 

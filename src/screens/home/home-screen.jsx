@@ -1,26 +1,25 @@
 import { useState } from "react";
-import { SafeAreaView, ScrollView, Switch, View } from "react-native";
-import { COLORS, icons, images, SIZES } from "../../constants";
-import { useSelector } from "react-redux";
+import {
+  SafeAreaView,
+  ScrollView,
+  Switch,
+  View,
+} from "react-native";
 import { Nearbyjobs, Popularjobs, Welcome } from "../../components";
-import { EventRegister } from "react-native-event-listeners"
-import { useContext } from "react";
-import ThemeContext from "../../context/theme.context";
+import { EventRegister } from "react-native-event-listeners";
+import styles from "./home.style";
+import useThemedStyles from "../../hook/useThemedStyles";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const HomeScreen = ({ navigation }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [darkMode, setDarkMode] = useState(false);
-  const theme = useContext(ThemeContext);
+  const style = useThemedStyles(styles);
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: theme.bg.primary }}>
+    <SafeAreaView style={style.safeArea}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <View
-          style={{
-            flex: 1,
-            padding: SIZES.medium,
-          }}
-        >
+        <View style={style.container}>
           <Welcome
             navigation={navigation}
             searchTerm={searchTerm}
@@ -32,11 +31,12 @@ const HomeScreen = ({ navigation }) => {
             }}
           />
           <Switch
-          onValueChange={(value)=> {
-            setDarkMode(value);
-            EventRegister.emit("ChangeTheme", value)
-          }} 
-          value={darkMode}
+            onValueChange={(value) => {
+              setDarkMode(value);
+              AsyncStorage.setItem('darkMode', JSON.stringify(value));
+              EventRegister.emit("ChangeTheme", value);
+            }}
+            value={darkMode}
           />
           <Popularjobs navigation={navigation} />
           <Nearbyjobs navigation={navigation} />

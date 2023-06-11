@@ -1,5 +1,6 @@
 import { Text, TextInput, View, Dimensions } from "react-native";
 import styles from "./profile-text-fields.styles";
+import useThemedStyles from "../../../hook/useThemedStyles";
 const { width } = Dimensions.get("window");
 const textInputDefaultWidth = width * 0.8;
 
@@ -11,18 +12,19 @@ const ProfileTextField = ({
   isEditable = false,
   onChangeText
 }) => {
+  const style = useThemedStyles(styles);
   return (
-    <View style={styles.parent}>
-      <View style={styles.labelContainer}>
-        <Text style={styles.fieldName}>{fieldName}</Text>
+    <View style={style.parent}>
+      <View style={style.labelContainer}>
+        <Text style={style.fieldName}>{fieldName}</Text>
       </View>
-      <View style={[styles.inputContainer, { width: textInputWidth }]}>
+      <View style={[style.inputContainer, { width: textInputWidth }]}>
         <TextInput
           editable={isEditable}
           selectionColor={"red"}
           inputMode={inputMode}
           value={fieldValue}
-          style={styles.searchInput}
+          style={style.searchInput}
           onChangeText={onChangeText}
         />
       </View>

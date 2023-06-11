@@ -3,13 +3,14 @@ import { useFonts } from "expo-font";
 import { registerRootComponent } from "expo";
 import { Provider } from "react-redux";
 import { store } from "./src/store";
-import { ThemeProvider } from "styled-components/native";
 import { NavigationContextProvider } from "./src/context/navigation.context";
 import { Navigation } from "./src/infrastructure/navigation";
 import { useEffect, useState } from "react";
 import { EventRegister } from "react-native-event-listeners";
-import ThemeContext from "./src/context/theme.context";
+import ThemeProvider from "./src/context/theme.context";
 import theme from "./src/infrastructure/theme/theme";
+import { COLORS } from "./src/constants";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const App = () => {
   const [fontsLoaded] = useFonts({
@@ -20,6 +21,15 @@ const App = () => {
 
   const [darkMode, setDarkMode] = useState(false);
   useEffect(() => {
+    AsyncStorage.getItem("darkMode", (err, value) => {
+      if (err) {
+        console.log(err);
+      } else {
+        if (value != null) {
+          setDarkMode(JSON.parse(value));
+        }
+      }
+    });
     const listener = EventRegister.addEventListener("ChangeTheme", (data) => {
       setDarkMode(data);
     });
@@ -32,14 +42,17 @@ const App = () => {
   }
 
   return (
-    <ThemeContext.Provider value={darkMode === true ? theme.dark : theme.light}>
-      <StatusBar barStyle="light-content" />
+    <ThemeProvider theme={darkMode === true ? theme.dark : theme.light}>
+      <StatusBar
+        barStyle={darkMode ? "light-content" : "dark-content"}
+        backgroundColor={darkMode ? COLORS.black : COLORS.white}
+      />
       <Provider store={store}>
         <NavigationContextProvider>
           <Navigation />
         </NavigationContextProvider>
       </Provider>
-    </ThemeContext.Provider>
+    </ThemeProvider>
   );
 };
 

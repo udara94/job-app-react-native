@@ -4,12 +4,14 @@ import HomeScreen from "../../../screens/home/home-screen";
 import ProfileScreen from "../../../screens/profile/profile";
 import JobSearch from "../../../screens/search/search";
 import JobDetails from "../../../screens/job-details/job-details";
-import { COLORS, icons } from "../../../constants";
+import { icons } from "../../../constants";
 import { ScreenHeaderBtn } from "../../../components";
 import DrawerNavigator from "../drawer.navigator/drawer.navigator";
+import useTheme from "../../../hook/useTheme";
 
 const Stack = createNativeStackNavigator();
 const AppNavigator = () => {
+  const theme = useTheme()
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -20,25 +22,31 @@ const AppNavigator = () => {
         })}
       />
       <Stack.Screen
-        options={{
-          headerStyle: { backgroundColor: COLORS.lightWhite },
+        options={({navigation})=>({
+          headerStyle: { backgroundColor: theme.bg.primary },
           headerShadowVisible: false,
           headerTitle: "",
-        }}
+          headerLeft:()=>(
+            <ScreenHeaderBtn iconUrl={icons.chevronLeft} dimension="60%" handlePress={()=>navigation.pop()} />
+          ),
+        })}
         name="search"
         component={JobSearch}
       />
       <Stack.Screen
         name="job-details"
-        options={{
-          headerStyle: { backgroundColor: COLORS.lightWhite },
+        options={({navigation}) => ({
+          headerStyle: { backgroundColor: theme.bg.primary },
           headerShadowVisible: false,
-          headerBackVisible: true,
+          headerBackVisible: false,
+          headerLeft:()=>(
+            <ScreenHeaderBtn iconUrl={icons.chevronLeft} dimension="60%" handlePress={()=>navigation.pop()} />
+          ),
           headerRight: () => (
             <ScreenHeaderBtn iconUrl={icons.share} dimension="60%" />
           ),
           headerTitle: "",
-        }}
+        })}
         component={JobDetails}
       />
       <Stack.Screen
