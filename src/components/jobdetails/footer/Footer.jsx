@@ -4,16 +4,20 @@ import styles from "./footer.style";
 import { icons } from "../../../constants";
 import useThemedStyles from "../../../hook/useThemedStyles";
 
-const Footer = ({ url }) => {
+const Footer = ({ url, onSaveJobPressed, isFavorite}) => {
   const style = useThemedStyles(styles);
   return (
     <View style={style.container}>
-      <TouchableOpacity style={style.likeBtn}>
-        <Image
-          source={icons.heartOutline}
+      <TouchableOpacity style={style.likeBtn} onPress={onSaveJobPressed}>
+        {isFavorite ? <Image
+          source={icons.heart}
           resizeMode='contain'
           style={style.likeBtnImage}
-        />
+        />:<Image
+        source={icons.heartOutline}
+        resizeMode='contain'
+        style={style.likeBtnImage}
+      />}
       </TouchableOpacity>
 
       <TouchableOpacity

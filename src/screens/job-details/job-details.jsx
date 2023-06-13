@@ -8,7 +8,7 @@ import {
   ActivityIndicator,
   RefreshControl,
   Share,
-  Alert
+  Alert,
 } from "react-native";
 
 import {
@@ -25,6 +25,8 @@ import { useGetJobDetailsQuery } from "../../../src/store/apiSlice";
 import useTheme from "../../hook/useTheme";
 import useThemedStyles from "../../hook/useThemedStyles";
 import styles from "./job.details.styles";
+import { deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
+import { auth, firebaseDB } from "../../../firebase";
 
 const tabs = ["About", "Qualifications", "Responsibilities"];
 
@@ -38,8 +40,7 @@ const JobDetails = ({ route, navigation }) => {
   });
   const [activeTab, setActiveTab] = useState(tabs[0]);
   const [refreshing, setRefreshing] = useState(false);
-
-  
+  const [isJobSaved, setJobSaved] = useState(false);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -81,14 +82,15 @@ const JobDetails = ({ route, navigation }) => {
         <ScreenHeaderBtn
           iconUrl={icons.share}
           dimension="60%"
-          handlePress={()=>{
-            if(data[0].job_apply_link){
-              onShare(data[0].job_apply_link)
+          handlePress={() => {
+            if (data[0].job_apply_link) {
+              onShare(data[0].job_apply_link);
             }
           }}
         />
       ),
     });
+    checkCurrentJobIsFavorite();
   }, [navigation, data]);
 
   const onShare = async (url) => {
@@ -107,12 +109,37 @@ const JobDetails = ({ route, navigation }) => {
       }
     } catch (error) {
       console.log(error);
-       Alert.alert(error.message);
+      Alert.alert(error.message);
     }
   };
 
   const theme = useTheme();
   const style = useThemedStyles(styles);
+
+  const performJobSave = async (data) => {
+    const user = auth.currentUser;
+    const docRef = doc(firebaseDB, "Users", user.uid, "SavedJobs", id);
+    if (isJobSaved) {
+      await deleteDoc(docRef);
+      setJobSaved(!isJobSaved);
+    } else {
+      await setDoc(docRef, {
+        ...data,
+      });
+      setJobSaved(!isJobSaved);
+    }
+  };
+
+  const checkCurrentJobIsFavorite = async () => {
+    const user = auth.currentUser;
+    const docRef = doc(firebaseDB, "Users", user.uid, "SavedJobs", id);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      setJobSaved(true);
+    } else {
+      setJobSaved(false);
+    }
+  };
   return (
     <SafeAreaView style={style.safeArea}>
       <>
@@ -149,6 +176,8 @@ const JobDetails = ({ route, navigation }) => {
         </ScrollView>
 
         <JobFooter
+        isFavorite={isJobSaved}
+          onSaveJobPressed={() => performJobSave(data[0])}
           url={
             data[0]?.job_google_link ??
             "https://careers.google.com/jobs/results/"
