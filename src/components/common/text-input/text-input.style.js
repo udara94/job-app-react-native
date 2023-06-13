@@ -11,7 +11,8 @@ const styles = theme => StyleSheet.create({
     paddingHorizontal: SIZES.medium,
     justifyContent: "center",
     alignItems: "center",
-    marginLeft: SIZES.large
+    marginLeft: SIZES.large,
+    color: theme.text.primary
    },
    searchContainer:{
     justifyContent: "center",

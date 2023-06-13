@@ -1,5 +1,5 @@
 import { Stack, useRouter, useSearchParams } from "expo-router";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -7,6 +7,8 @@ import {
   ScrollView,
   ActivityIndicator,
   RefreshControl,
+  Share,
+  Alert
 } from "react-native";
 
 import {
@@ -17,16 +19,16 @@ import {
   ScreenHeaderBtn,
   Specifics,
 } from "../../../src/components";
-import { SIZES } from "../../constants";
+import { SIZES, icons } from "../../constants";
 import useFetch from "../../../src/hook/useFetch";
-import { useGetJobDetailsQuery } from '../../../src/store/apiSlice';
+import { useGetJobDetailsQuery } from "../../../src/store/apiSlice";
 import useTheme from "../../hook/useTheme";
 import useThemedStyles from "../../hook/useThemedStyles";
 import styles from "./job.details.styles";
 
 const tabs = ["About", "Qualifications", "Responsibilities"];
 
-const JobDetails = ({route, navigation}) => {
+const JobDetails = ({ route, navigation }) => {
   // const params = useSearchParams();
   // const router = useRouter();
   const { params } = route;
@@ -34,23 +36,23 @@ const JobDetails = ({route, navigation}) => {
   const { data, isLoading, error, refetch } = useFetch("job-details", {
     job_id: id,
   });
-  
   const [activeTab, setActiveTab] = useState(tabs[0]);
   const [refreshing, setRefreshing] = useState(false);
 
+  
+
   const onRefresh = useCallback(() => {
     setRefreshing(true);
-    refetch()
-    setRefreshing(false)
+    refetch();
+    setRefreshing(false);
   }, []);
-
 
   const displayTabContent = () => {
     switch (activeTab) {
       case "Qualifications":
         return (
           <Specifics
-            title='Qualifications'
+            title="Qualifications"
             points={data[0].job_highlights?.Qualifications ?? ["N/A"]}
           />
         );
@@ -63,7 +65,7 @@ const JobDetails = ({route, navigation}) => {
       case "Responsibilities":
         return (
           <Specifics
-            title='Responsibilities'
+            title="Responsibilities"
             points={data[0].job_highlights?.Responsibilities ?? ["N/A"]}
           />
         );
@@ -73,17 +75,55 @@ const JobDetails = ({route, navigation}) => {
     }
   };
 
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <ScreenHeaderBtn
+          iconUrl={icons.share}
+          dimension="60%"
+          handlePress={()=>{
+            if(data[0].job_apply_link){
+              onShare(data[0].job_apply_link)
+            }
+          }}
+        />
+      ),
+    });
+  }, [navigation, data]);
+
+  const onShare = async (url) => {
+    try {
+      const result = await Share.share({
+        message: url,
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      console.log(error);
+       Alert.alert(error.message);
+    }
+  };
+
   const theme = useTheme();
-  const style = useThemedStyles(styles)
+  const style = useThemedStyles(styles);
   return (
     <SafeAreaView style={style.safeArea}>
       <>
-        <ScrollView showsVerticalScrollIndicator={false}
+        <ScrollView
+          showsVerticalScrollIndicator={false}
           refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
         >
           {isLoading ? (
-            <ActivityIndicator size='large' color={theme.ui.primary} />
+            <ActivityIndicator size="large" color={theme.ui.primary} />
           ) : error ? (
             <Text>Something went wrong</Text>
           ) : data.length === 0 ? (
@@ -108,7 +148,12 @@ const JobDetails = ({route, navigation}) => {
           )}
         </ScrollView>
 
-        <JobFooter url={data[0]?.job_google_link ?? 'https://careers.google.com/jobs/results/'} />
+        <JobFooter
+          url={
+            data[0]?.job_google_link ??
+            "https://careers.google.com/jobs/results/"
+          }
+        />
       </>
     </SafeAreaView>
   );
