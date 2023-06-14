@@ -15,7 +15,7 @@ const AppNavigator = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Home"
+        name="Main"
         component={DrawerNavigator}
         options={({ navigation }) => ({
           headerShown: false

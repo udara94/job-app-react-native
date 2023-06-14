@@ -6,6 +6,7 @@ import HomeScreen from "../../../screens/home/home-screen";
 import useTheme from "../../../hook/useTheme";
 import { auth } from "../../../../firebase";
 import { signOut } from "firebase/auth";
+import SavedJobs from "../../../screens/saved-jobs/saved-jobs";
 
 const Drawer = createDrawerNavigator();
 const DrawerNavigator = () => {
@@ -13,7 +14,7 @@ const DrawerNavigator = () => {
   const theme = useTheme();
   return (
     <Drawer.Navigator 
-    initialRouteName="HomeDrawer"
+    initialRouteName="Home"
     drawerContent={(props)=>{
       return (
         <DrawerContentScrollView {...props}>
@@ -26,7 +27,7 @@ const DrawerNavigator = () => {
     }}
     >
       <Drawer.Screen
-        name="HomeDrawer"
+        name="Home"
         component={HomeScreen}
         options={({ navigation }) => ({
           headerStyle: {
@@ -62,7 +63,34 @@ const DrawerNavigator = () => {
           headerTitle: "",
         })}
       />
-      {/* <Drawer.Screen name="Notifications" component={NotificationsScreenTest} /> */}
+      <Drawer.Screen
+      name="Saved Jobs"
+      component={SavedJobs}
+      options={({ navigation }) => ({
+        headerStyle: {
+          backgroundColor: theme.bg.primary,
+        },
+        headerLeftContainerStyle: {
+          padding: 15,
+        },
+        headerShadowVisible: false,
+        headerLeft: () => (
+          <ScreenHeaderBtn
+            iconUrl={icons.menu}
+            dimension="60%"
+            handlePress={() => {
+              navigation.openDrawer();
+            }}
+          />
+        ),
+        headerRightContainerStyle: {
+          padding: 15,
+        },
+        headerTitle: "Saved Jobs",
+        headerTitleStyle:{
+          color: theme.text.primary
+        }
+      })}/>
     </Drawer.Navigator>
   );
 };
