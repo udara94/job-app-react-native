@@ -20,6 +20,9 @@ import { NavigationContext } from "../../context/navigation.context";
 import { NavigationStatus } from "../../enums/navigation-status.enum";
 import useTheme from "../../hook/useTheme";
 import useThemedStyles from "../../hook/useThemedStyles";
+import { getUserDetails } from "../../services/firebase.service";
+import { useDispatch } from "react-redux";
+import { userSlice } from "../../store/userSlice";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
@@ -29,10 +32,15 @@ const LoginScreen = () => {
   const { onNavigationStausChange } = useContext(NavigationContext);
   const theme = useTheme();
   const style = useThemedStyles(styles);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (user) {
+        const docSnap = await getUserDetails(user)
+        if(docSnap.exists()){
+          dispatch(userSlice.actions.setCurrentUser(docSnap.data()));
+        }
         onNavigationStausChange(NavigationStatus.Authenticated);
       }
     });

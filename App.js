@@ -10,6 +10,7 @@ import { EventRegister } from "react-native-event-listeners";
 import ThemeProvider from "./src/context/theme.context";
 import theme from "./src/infrastructure/theme/theme";
 import { COLORS } from "./src/constants";
+import { Provider as PaperProvider } from 'react-native-paper';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const App = () => {
@@ -42,7 +43,8 @@ const App = () => {
   }
 
   return (
-    <ThemeProvider theme={darkMode === true ? theme.dark : theme.light}>
+    <PaperProvider>
+      <ThemeProvider theme={darkMode === true ? theme.dark : theme.light}>
       <StatusBar
         barStyle={darkMode ? "light-content" : "dark-content"}
         backgroundColor={darkMode ? COLORS.black : COLORS.white}
@@ -53,6 +55,8 @@ const App = () => {
         </NavigationContextProvider>
       </Provider>
     </ThemeProvider>
+    </PaperProvider>
+    
   );
 };
 

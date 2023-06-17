@@ -21,7 +21,7 @@ import { auth, firebaseDB } from "../../../firebase";
 import SaveJobCard from "../../components/common/cards/saved-jobs/saved-job";
 const { collection, getDocs } = require("firebase/firestore");
 
-const SavedJobs = () => {
+const SavedJobs = ({navigation}) => {
   const theme = useTheme();
   const style = useThemedStyles(styles);
   const [savedJobs, setSavedJobs] = useState([]);

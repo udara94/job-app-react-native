@@ -16,7 +16,8 @@ export const darkPalette = {
   white: "#F3F4F8",
   lightWhite: "#FFF",
   black: "#000000",
-  ashWhite: "#F3F4F8"
+  ashWhite: "#F3F4F8",
+  drawerGray: "#303030"
 };
 
 export const lightPalette = {

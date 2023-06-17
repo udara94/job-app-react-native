@@ -26,16 +26,23 @@ const theme = {
       inverse: lightPalette.white,
       // error: lightPalette.red,
       // success: lightPalette.blue,
-      // dark: lightPalette.darkSienna,
+       dark: lightPalette.white,
     },
     tint: {
       primary: lightPalette.white,
     },
     button: {
-      primary: darkPalette.primary,
+      primary: lightPalette.primary,
     },
     card:{
       primary: lightPalette.lightWhite
+    },
+    drawer:{
+      primary: lightPalette.white,
+      secondary: lightPalette.black,
+      tertiary: lightPalette.ashWhite,
+      quaternary: lightPalette.black,
+      disabled: lightPalette.gray,
     },
     common:{
       primary: lightPalette.white
@@ -66,7 +73,7 @@ const theme = {
       inverse: darkPalette.white,
       // error: lightPalette.red,
       // success: lightPalette.blue,
-      // dark: lightPalette.darkSienna,
+       dark: darkPalette.black,
     },
     tint: {
       primary: darkPalette.white,
@@ -77,8 +84,15 @@ const theme = {
     card:{
       primary: darkPalette.secondary
     },
+    drawer:{
+      primary: darkPalette.drawerGray,
+      secondary: darkPalette.white,
+      tertiary: darkPalette.ashWhite,
+      quaternary: darkPalette.black,
+      disabled: darkPalette.gray,
+    },
     common:{
-      primary: lightPalette.white
+      primary: darkPalette.white
     }
   },
 };

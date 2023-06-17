@@ -83,7 +83,7 @@ const JobDetails = ({ route, navigation }) => {
           iconUrl={icons.share}
           dimension="60%"
           handlePress={() => {
-            if (data[0].job_apply_link) {
+            if (data && data[0]?.job_apply_link) {
               onShare(data[0].job_apply_link);
             }
           }}

@@ -11,23 +11,27 @@ import useTheme from "../../../hook/useTheme";
 
 const Stack = createNativeStackNavigator();
 const AppNavigator = () => {
-  const theme = useTheme()
+  const theme = useTheme();
   return (
     <Stack.Navigator>
       <Stack.Screen
         name="Main"
         component={DrawerNavigator}
         options={({ navigation }) => ({
-          headerShown: false
+          headerShown: false,
         })}
       />
       <Stack.Screen
-        options={({navigation})=>({
+        options={({ navigation }) => ({
           headerStyle: { backgroundColor: theme.bg.primary },
           headerShadowVisible: false,
           headerTitle: "",
-          headerLeft:()=>(
-            <ScreenHeaderBtn iconUrl={icons.chevronLeft} dimension="60%" handlePress={()=>navigation.pop()} />
+          headerLeft: () => (
+            <ScreenHeaderBtn
+              iconUrl={icons.chevronLeft}
+              dimension="60%"
+              handlePress={() => navigation.pop()}
+            />
           ),
         })}
         name="search"
@@ -35,12 +39,16 @@ const AppNavigator = () => {
       />
       <Stack.Screen
         name="job-details"
-        options={({navigation}) => ({
+        options={({ navigation }) => ({
           headerStyle: { backgroundColor: theme.bg.primary },
           headerShadowVisible: false,
           headerBackVisible: false,
-          headerLeft:()=>(
-            <ScreenHeaderBtn iconUrl={icons.chevronLeft} dimension="60%" handlePress={()=>navigation.pop()} />
+          headerLeft: () => (
+            <ScreenHeaderBtn
+              iconUrl={icons.chevronLeft}
+              dimension="60%"
+              handlePress={() => navigation.pop()}
+            />
           ),
           headerRight: () => (
             <ScreenHeaderBtn iconUrl={icons.share} dimension="60%" />
@@ -50,7 +58,19 @@ const AppNavigator = () => {
         component={JobDetails}
       />
       <Stack.Screen
-        options={{ headerShown: false }}
+        options={({ navigation }) => ({
+          headerShown: true,
+          headerShadowVisible: false,
+          headerStyle: { backgroundColor: theme.bg.primary },
+          headerLeft: () => (
+            <ScreenHeaderBtn
+              iconUrl={icons.chevronLeft}
+              dimension="60%"
+              handlePress={() => navigation.pop()}
+            />
+          ),
+          headerTitle: "",
+        })}
         name="Profile"
         component={ProfileScreen}
       />
